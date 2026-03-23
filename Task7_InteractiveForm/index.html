@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task 7 - Interactive Feedback Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Feedback Form</h2>
+
+    <form id="feedbackForm">
+
+        <label>Name</label>
+        <input type="text" id="name"
+               onkeypress="validateName(event)"
+               onmouseover="highlight(this)"
+               onmouseout="removeHighlight(this)">
+
+        <label>Email</label>
+        <input type="text" id="email"
+               onkeyup="validateEmail()"
+               onmouseover="highlight(this)"
+               onmouseout="removeHighlight(this)">
+
+        <label>Feedback</label>
+        <textarea id="message"
+                  onmouseover="highlight(this)"
+                  onmouseout="removeHighlight(this)"></textarea>
+
+        <button type="button" ondblclick="submitForm()">
+            Double Click to Submit
+        </button>
+
+        <p id="msg"></p>
+
+    </form>
+</div>
+
+</body>
+</html>

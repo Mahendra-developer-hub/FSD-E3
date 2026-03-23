@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login System</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function validateForm() {
+            let username = document.forms["loginForm"]["username"].value;
+            let password = document.forms["loginForm"]["password"].value;
+
+            if (username == "" || password == "") {
+                document.getElementById("error").innerHTML = "All fields are required!";
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login System</h2>
+
+    <form name="loginForm" action="login.php" method="post" onsubmit="return validateForm()">
+        <label>Username</label>
+        <input type="text" name="username">
+
+        <label>Password</label>
+        <input type="password" name="password">
+
+        <button type="submit">Login</button>
+    </form>
+
+    <p id="error" style="color:red;"></p>
+</div>
+
+</body>
+</html>
