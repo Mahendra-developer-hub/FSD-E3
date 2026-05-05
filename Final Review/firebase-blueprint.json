@@ -1,0 +1,91 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information and application state.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "wishlist": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email", "role"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "Event details including booking information.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string", "enum": ["Tech", "Cultural", "Sports"] },
+        "date": { "type": "string", "format": "date-time" },
+        "location": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "ticketTiers": {
+          "type": "object",
+          "properties": {
+            "VIP": { "type": "number" },
+            "Premium": { "type": "number" },
+            "General": { "type": "number" }
+          }
+        },
+        "totalCapacity": { "type": "number" },
+        "availableTickets": { "type": "number" },
+        "status": { "type": "string", "enum": ["upcoming", "cancelled", "completed"] },
+        "isFeatured": { "type": "boolean" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "category", "date", "location", "totalCapacity", "availableTickets", "status"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "User ticket booking for an event.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "eventId": { "type": "string" },
+        "eventTitle": { "type": "string" },
+        "tickets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tier": { "type": "string" },
+              "quantity": { "type": "number" },
+              "price": { "type": "number" }
+            }
+          }
+        },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"] },
+        "stripeSessionId": { "type": "string" },
+        "qrCodeUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "eventId", "tickets", "totalAmount", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles."
+    },
+    "/events/{eventId}": {
+      "schema": "Event",
+      "description": "Event listings."
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Event bookings."
+    }
+  }
+}
